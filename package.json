@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": "server side code for sinister-six sih",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sinister-Six/server.git"
+  },
+  "author": "sinister-six",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sinister-Six/server/issues"
+  },
+  "homepage": "https://github.com/Sinister-Six/server#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
