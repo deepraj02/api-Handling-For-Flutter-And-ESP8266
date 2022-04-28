@@ -5,28 +5,36 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-let ledNumber;
+
 app.use(
 	cors()
 );
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/ledNumber", (req, res) => {
-	console.log(req.body.led);
-	if (req.body.led == "1" || req.body.led == "2" || req.body.led == "3" || req.body.led == "4" || req.body.led == "5" || req.body.led == "6"){
-	ledNumber = req.body.led;
-	res.send(`Sab badiya bhai led-On:${req.body.led}`).status(200);}
-	else {
-		res.status(400).send("Please dont fuck the server and send a number between 1-6");
+const leds=[1,2,3,4,5,6]
+const Leds = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0}
+app.post("/", (req, res) => {
+	console.log(`led: ${req.body.led}`);
+	if (leds.includes(req.body.led)){
+	Leds[req.body.led]=Leds[req.body.led]==0?1:0
+	res.json(`Led number ${req.body.led} is now ${Leds[req.body.led]==0?'off':'on'}`).status(200);}
+	else if(req.body.led == null){
+		Leds[1]=0
+		Leds[2]=0
+		Leds[3]=0
+		Leds[4]=0
+		Leds[5]=0
+		Leds[6]=0
+		res.status(200).json("All LEDs are off now.")
+	}
+	else{
+		res.status(200).json("Please dont fuck the server and send a number between 1-6 or null");
 	}
 });
 
-app.get("/ledNumber", (req,res)=>{
-	if(!ledNumber){
-		res.status(404).send("No led set Currently")
-	}
-	res.status(200).send(ledNumber);
+app.get("/", (req,res)=>{
+	res.status(200).json(Leds);
 })
 
 app.listen(PORT, () => {
