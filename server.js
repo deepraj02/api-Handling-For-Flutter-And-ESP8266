@@ -5,18 +5,25 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+let ledNumber;
 app.use(
-	cors({
-		origin: ["http://127.0.0.1"],
-	})
+	cors()
 );
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/msg", (req, res) => {
-	console.log(req.body.msg);
-	res.send(`Sab badiya bhai ${req.body.msg}`).status(400);
+app.post("/ledNumber", (req, res) => {
+	console.log(req.body.led);
+	ledNumber = req.body.led;
+	res.send(`Sab badiya bhai led-On:${req.body.led}`).status(200);
 });
+
+app.get("/ledNumber", (req,res)=>{
+	if(!ledNumber){
+		res.status(404).send("No led set Currently")
+	}
+	res.status(200).send(ledNumber);
+})
 
 app.listen(PORT, () => {
 	console.log(`server listening on ${PORT}`);
