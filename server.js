@@ -15,10 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const leds=[1,2,3,4,5,6]
 const Leds = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0}
 app.post("/", (req, res) => {
-	console.log(`led: ${req.body.led}`);
-	if (leds.includes(req.body.led)){
-	Leds[req.body.led]=Leds[req.body.led]==0?1:0
-	res.json(`Led number ${req.body.led} is now ${Leds[req.body.led]==0?'off':'on'}`).status(200);}
+	let request = parseInt(req.body.led)
+	console.log(`led: ${request}`);
+	if (leds.includes(request)){
+	Leds[req.body.led]=Leds[request]==0?1:0
+	res.json(`Led number ${request} is now ${Leds[request]==0?'off':'on'}`).status(200);}
 	else if(req.body.led == null){
 		Leds[1]=0
 		Leds[2]=0
