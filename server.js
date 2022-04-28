@@ -14,8 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/ledNumber", (req, res) => {
 	console.log(req.body.led);
+	if (req.body.led == "1" || req.body.led == "2" || req.body.led == "3" || req.body.led == "4" || req.body.led == "5" || req.body.led == "6"){
 	ledNumber = req.body.led;
-	res.send(`Sab badiya bhai led-On:${req.body.led}`).status(200);
+	res.send(`Sab badiya bhai led-On:${req.body.led}`).status(200);}
+	else {
+		res.status(400).send("Please dont fuck the server and send a number between 1-6");
+	}
 });
 
 app.get("/ledNumber", (req,res)=>{
